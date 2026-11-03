@@ -1,0 +1,18 @@
+| scenario | status | refund INR | model calls | tokens |
+|---|---|---|---|---|
+| S1 | REFUND | 128.25 | 5 | 1067 |
+| S2 | REFUND | 135.00 | 5 | 1067 |
+| S3 | ESCALATE | 1999.00 | 5 | 1054 |
+| S4 | DENIED | 0.00 | 4 | 741 |
+| S5 | DENIED | 0.00 | 3 | 439 |
+| S6 | NOT_FOUND | 0.00 | 2 | 140 |
+| S7 | FALLBACK_MAX_ITERATIONS | 0.00 | 6 | 3204 |
+
+demo token_limit=200  -> FALLBACK_TOKEN_LIMIT | calls 3 | tokens 456 | tools executed ['get_order', 'search_policy']
+demo time_limit=0     -> FALLBACK_TIMEOUT | calls 0 | steps 0
+handoff summary example: Handing over to a human agent: token limit exceeded after 3 model calls and 456 tokens. Tools completed so far: get_order, search_policy. Request: My order ORD-100048 reached me very late. I would like a refund.
+
+crash demo: simulated crash after tool #2
+checkpoint tools so far: ['get_order', 'search_policy'] | step 2
+resume result: REFUND 128.25 | tools executed across crash+resume: ['get_order', 'search_policy', 'calculate_refund', 'issue_refund'] | total model calls 5
+ledger lines: 4 | state files: 9

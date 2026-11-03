@@ -1,0 +1,42 @@
+
+=== customers: shape (1200, 5)
+               dtype  missing  missing_pct
+customer_id      str        0         0.00
+city             str        0         0.00
+signup_date      str        0         0.00
+age          float64       61         5.08
+gender           str       30         2.50
+
+=== products: shape (40, 4)
+              dtype  missing  missing_pct
+product_id      str        0          0.0
+product_name    str        0          0.0
+category        str        0          0.0
+price_inr     int64        0          0.0
+
+=== orders: shape (13084, 9)
+                    dtype  missing  missing_pct
+order_id              str        0         0.00
+customer_id           str        0         0.00
+product_id            str        0         0.00
+quantity            int64        0         0.00
+order_ts              str        0         0.00
+status                str        0         0.00
+discount_pct        int64        0         0.00
+order_amount          str        0         0.00
+delivery_minutes  float64     2541        19.42
+
+=== Audit figures
+figure                                              observed reference
+raw orders.csv rows                                   13,084    13,084  OK
+exact duplicate rows                                     119       119  OK
+rows with status pending                                 656       656  OK
+distinct order_id                                     12,309    12,309  OK
+non-numeric order_amount                                 120       120  OK
+negative delivery_minutes                                106       106  OK
+blank delivery_minutes                                 2,541     2,541  OK
+customers: blank age                                      61        61  OK
+customers: age outside 10-100                              6         6  OK
+customers: distinct raw city spellings                    24        24  OK
+customers: distinct non-blank gender spellings            10        10  OK
+customers: blank gender                                   30        30  OK
